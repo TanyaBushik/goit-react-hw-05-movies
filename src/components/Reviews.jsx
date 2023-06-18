@@ -5,7 +5,7 @@ const Reviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    const API_KEY = '980a29a06d08483ff8c874fb49e62f08';
+    // const API_KEY = '980a29a06d08483ff8c874fb49e62f08';
   }, []);
 
   return <div>Reviews: {movieId}</div>;
