@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMoviesTrading } from 'services/api';
+import MoviesList from '../components/MoviesList';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -9,7 +10,12 @@ const Home = () => {
       setMovies(response).catch(error => console.error(error.message));
     });
   }, []);
-  return <div>Trending movies</div>;
+  return (
+    <>
+      <p> Trending movies</p>;
+      {!!movies.length && <MoviesList movies={movies} />}
+    </>
+  );
 };
 
 export default Home;
