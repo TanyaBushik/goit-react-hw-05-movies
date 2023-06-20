@@ -1,11 +1,52 @@
-import { useEffect } from 'react';
-import { SearchBox } from 'components/SearchBox/SearchBox';
+import { useEffect, useState } from 'react';
+import { DebounceInput } from 'react-debounce-input';
+import { getMovieSearch } from 'services/api';
+import { useSearchParams } from 'react-router-dom';
+import { Wrapper, Icon } from 'pages/Movies.styled';
+import MoviesList from 'components/MoviesList';
 
 const Movies = () => {
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
   useEffect(() => {
-    //   const API_KEY='980a29a06d08483ff8c874fb49e62f08'
-  }, []);
-  return <SearchBox />;
+    if (query === '') {
+      setMovies([]);
+      return;
+    }
+    getMovieSearch(query)
+      .then(response => {
+        setMovies(response);
+      })
+      .catch(error => {
+        console.error(error.message);
+        setMovies([]);
+      });
+  }, [query]);
+
+  const handleInputChange = event => {
+    const movieQueryValue = event.target.value;
+    if (movieQueryValue === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ query: movieQueryValue });
+  };
+
+  return (
+    <Wrapper>
+      <Icon />
+      <DebounceInput
+        minLength={2}
+        debounceTimeout={300}
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+      />
+      {query && <h1>Found movies</h1>}
+      {!!movies.length && <MoviesList movies={movies} />}
+    </Wrapper>
+  );
 };
 
 export default Movies;
