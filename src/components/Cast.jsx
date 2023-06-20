@@ -1,14 +1,46 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { getMovieCast } from 'services/api';
+import { CastItem, CastInfo } from 'components/Cast.styled';
 
 const Cast = () => {
+  const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
   useEffect(() => {
-    //   const API_KEY='980a29a06d08483ff8c874fb49e62f08'
-  }, []);
+    getMovieCast(movieId)
+      .then(credits => setCast(credits.cast))
+      .catch(error => {
+        console.log(error.message);
+        setCast([]);
+      });
+  }, [movieId]);
 
-  return <div>Cast: {movieId}</div>;
+  const imageUrl = 'https://image.tmdb.org/t/p/w300';
+
+  return (
+    <ul>
+      {cast.map(actor => (
+        <CastItem key={actor.id}>
+          {actor.profile_path && (
+            <img
+              src={`${imageUrl}${actor.profile_path}`}
+              alt={actor.name}
+              width="120"
+            />
+          )}
+          <CastInfo>
+            <p>
+              <b>Name:</b> {actor.name}
+            </p>
+            <p>
+              <b>Character:</b> {actor.character}
+            </p>
+          </CastInfo>
+        </CastItem>
+      ))}
+    </ul>
+  );
 };
 
 export default Cast;
