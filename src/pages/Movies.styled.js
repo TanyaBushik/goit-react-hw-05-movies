@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const MoviesContainer = styled.div`
-  padding-top: 90px;
+  margin-top: 90px;
   padding-left: 24px;
   display: inline-block;
   align-items: center;
