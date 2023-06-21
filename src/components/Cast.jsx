@@ -18,6 +18,10 @@ const Cast = () => {
 
   const imageUrl = 'https://image.tmdb.org/t/p/w300';
 
+  if (cast.length === 0) {
+    return <p>We don't have any casts for this movie</p>;
+  }
+
   return (
     <ul>
       {cast.map(actor => (

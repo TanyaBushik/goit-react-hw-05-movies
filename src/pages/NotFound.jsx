@@ -7,6 +7,7 @@ const NotFound = () => {
   const handleGoHome = () => {
     navigate('/');
   };
+
   return (
     <NotFoundContainer>
       <h1>Page not found</h1>

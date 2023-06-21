@@ -23,7 +23,11 @@ export const BackButton = styled(Link)`
 `;
 
 export const DetailsContainer = styled.div`
-  padding: 24px;
+  /* padding: 24px; */
+  padding-top: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
 `;
 
 export const MovieInfo = styled.div`

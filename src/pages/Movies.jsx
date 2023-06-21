@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import { getMovieSearch } from 'services/api';
 import { useSearchParams } from 'react-router-dom';
-import { MoviesContainer, Icon } from 'pages/Movies.styled';
+import { MoviesContainer } from 'pages/Movies.styled';
 import MoviesList from 'components/MoviesList';
 
 const Movies = () => {
@@ -35,7 +35,7 @@ const Movies = () => {
 
   return (
     <MoviesContainer>
-      <Icon />
+      {/* <Icon /> */}
       <DebounceInput
         minLength={2}
         debounceTimeout={300}
